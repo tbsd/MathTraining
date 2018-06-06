@@ -1,0 +1,15 @@
+-
+  subject: ['substruction']
+  difficulty: 0
+  answer: -42
+  text: '28 - 70 = ?'
+-
+  subject: ['addition', 'multiplication']
+  difficulty: 1
+  answer: 118
+  text: '2(-5) + (-8)(-16) = ?'
+-
+  subject: ['multiplication', 'equotion']
+  difficulty: 2
+  answer: -5
+  text: '-4x - 20 = 0; x = ?'
