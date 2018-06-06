@@ -1,7 +1,9 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
+require 'yaml'
 
 configure do
+  set :exercises, YAML.load_file('data/exercises.yaml')
   set :root, __dir__
 end
 
