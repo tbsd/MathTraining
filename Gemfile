@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'rubocop'
 
-gem "sinatra"
+gem 'sinatra'
 
-gem "minitest"
-gem "rake"
-gem "capybara"
-gem "sinatra-contrib"
-gem "thin"
+gem 'capybara'
+gem 'minitest'
+gem 'rake'
+gem 'sinatra-contrib'
+gem 'thin'
