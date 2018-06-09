@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'yaml'
@@ -17,4 +19,8 @@ end
 
 get '/theory' do
   erb :theory
+end
+
+get '/general_test' do
+  erb :general_test
 end
