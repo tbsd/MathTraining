@@ -1,5 +1,5 @@
 # MathTraining
-Simple example of ruby web application. 
+Simple ruby web application with Foundation for Sites by ZURB.
 
 Contains few mathematical tests and some theoretical information
 about operations with negative numbers.
