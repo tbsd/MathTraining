@@ -11,5 +11,5 @@
 -
   subject: ['*', '-']
   difficulty: 2
-  answer: -89.67
-  text: '4.33(-20.2) - 2.2 = ?'
+  answer: -88.8
+  text: '4.33(-20) - 2.2 = ?'
