@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require 'pp'
+require 'yaml'
 
 configure do
-  set :exercises, %w[das lll dasdsssssssad] # REMOVE ME mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+  set :exercises, YAML.load_file('data/exercises.yaml')
   set :root, __dir__
 end
 
@@ -20,7 +22,5 @@ get '/theory' do
 end
 
 get '/general_test' do
-  @exercise = settings.exercises[-1]
-  pp @exercise
   erb :general_test
 end
