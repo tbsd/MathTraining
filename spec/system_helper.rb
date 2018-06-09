@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 ENV['RACK_ENV'] = 'test'
 
-require_relative "spec_helper"
-require_relative "../app.rb"
+require_relative 'spec_helper'
+require_relative '../app.rb'
 
 require 'capybara'
 require 'capybara/dsl'

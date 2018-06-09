@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 require 'bundler'
 require 'rake/testtask'
 
-task :default => :spec
+task default: :spec
 
 Rake::TestTask.new(:spec) do |t|
   t.test_files = FileList['spec/*_spec.rb']
