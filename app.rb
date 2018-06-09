@@ -14,8 +14,6 @@ configure do
   set :main_list, []
   set :additional, []
   set :past, []
-  # set :messages, []
-  # set :warnings, []
   set :root, __dir__
 end
 
@@ -35,8 +33,8 @@ get '/general_test' do
   settings.main_list = []
   settings.additional = []
   settings.past = []
-  same_difficulty_count = 1
-  additional_count = 0
+  same_difficulty_count = 9
+  additional_count = 3
   shuffled = settings.exercises_pool.shuffle
   difficulty = 0
   while difficulty <= settings.max_difficulty
