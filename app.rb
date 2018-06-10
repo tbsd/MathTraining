@@ -7,13 +7,15 @@ require 'pp'
 require_relative 'lib/exercise'
 require_relative 'lib/yer'
 
+enable :sessions
+
 configure do
   set :max_difficulty, 2
-  set :current_exercise, nil
   set :exercises_pool, YER.read_exercises
-  set :main_list, []
-  set :additional, []
-  set :past, []
+  # set :current_exercise, nil
+  # set :main_list, []
+  # set :additional, []
+  # set :past, []
   set :root, __dir__
 end
 
@@ -30,51 +32,53 @@ get '/theory' do
 end
 
 get '/general_test' do
-  settings.main_list = []
-  settings.additional = []
-  settings.past = []
+  session[:main_list] = []
+  session[:additional] = []
+  session[:past] = []
   same_difficulty_count = 9
   additional_count = 3
   shuffled = settings.exercises_pool.shuffle
   difficulty = 0
   while difficulty <= settings.max_difficulty
     same_difficulty = shuffled.select { |e| e.difficulty == difficulty }
-    settings.main_list.concat(same_difficulty.pop(same_difficulty_count))
-    settings.additional.concat(same_difficulty.pop(additional_count))
+    session[:main_list].concat(same_difficulty.pop(same_difficulty_count))
+    session[:additional].concat(same_difficulty.pop(additional_count))
     difficulty += 1
   end
-  settings.current_exercise = settings.main_list.shift
+  session[:current_exercise] = session[:main_list].shift
   @current_number = 1
-  @total_number = settings.main_list.size + 1
+  @total_number = session[:main_list].size + 1
+  session[:page] = @current_number
   erb :general_test
 end
 
 post '/general_test' do
   @warnings = []
   @messages = []
-  settings.past << settings.current_exercise
+  session[:past] << session[:current_exercise]
   answer = params['answer']
-  if answer.to_f == settings.current_exercise.answer
-    settings.current_exercise.correct = true
+  if answer.to_f == session[:current_exercise].answer
+    session[:current_exercise].correct = true
     @messages << 'Верно!'
-    settings.current_exercise = settings.main_list.shift
+    session[:current_exercise] = session[:main_list].shift
   else
-    settings.current_exercise.correct = false
+    session[:current_exercise].correct = false
     @warnings << 'Ошибка!'
-    new_ex = settings.additional.find do |e|
-      e.difficulty == settings.current_exercise.difficulty
+    new_ex = session[:additional].find do |e|
+      e.difficulty == session[:current_exercise].difficulty
     end
     if new_ex.nil?
       @messages << 'Дополнительных заданий на этом уровне сложности больше нет.'
-      settings.current_exercise = settings.main_list.shift
+      session[:current_exercise] = session[:main_list].shift
     else
       @messages << 'Решите дополнительное задание.'
-      settings.current_exercise = settings.additional.delete(new_ex)
+      session[:current_exercise] = session[:additional].delete(new_ex)
     end
   end
-  return redirect to('/statistics') if settings.current_exercise.nil?
-  @current_number = settings.past.size + 1
-  @total_number = settings.past.size + settings.main_list.size + 1
+  return redirect to('/statistics') if session[:current_exercise].nil?
+  @current_number = session[:past].size + 1
+  @total_number = session[:past].size + session[:main_list].size + 1
+  session[:page] = @current_number
   erb :general_test
 end
 
