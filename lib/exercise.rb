@@ -3,6 +3,8 @@
 # Stores exercise data
 class Exercise
   attr_reader :difficulty, :answer, :text
+  attr_writer :correct
+
   def initialize(hash)
     @subject = hash['subject']
     @difficulty = hash['difficulty']
@@ -14,8 +16,6 @@ class Exercise
   def subject_present?(subject)
     @subject.include?(subject.strip)
   end
-
-  attr_writer :correct
 
   def correct?
     @correct
