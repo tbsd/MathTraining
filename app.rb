@@ -12,10 +12,6 @@ enable :sessions
 configure do
   set :max_difficulty, 2
   set :exercises_pool, YER.read_exercises
-  # set :current_exercise, nil
-  # set :main_list, []
-  # set :additional, []
-  # set :past, []
   set :root, __dir__
 end
 
@@ -56,8 +52,8 @@ post '/general_test' do
   @warnings = []
   @messages = []
   session[:past] << session[:current_exercise]
-  answer = params['answer']
-  if answer.to_f == session[:current_exercise].answer
+  # replace if with next_exercise method????????????????????????????????
+  if params['answer'].to_f == session[:current_exercise].answer
     session[:current_exercise].correct = true
     @messages << 'Верно!'
     session[:current_exercise] = session[:main_list].shift
