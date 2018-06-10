@@ -15,9 +15,7 @@ class Exercise
     @subject.include?(subject.strip)
   end
 
-  def correct=(value)
-    @correct = value
-  end
+  attr_writer :correct
 
   def correct?
     @correct
