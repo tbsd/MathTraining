@@ -5,12 +5,12 @@ class Exercise
   attr_reader :difficulty, :answer, :text
   attr_writer :correct
 
-  def initialize(hash)
-    @subject = hash['subject']
-    @difficulty = hash['difficulty']
-    @answer = hash['answer']
-    @text = hash['text']
-    @correct = false
+  def initialize(subject, difficulty, answer, text, corrct = false)
+    @subject = subject
+    @difficulty = difficulty
+    @answer = answer
+    @text = text
+    @correct = correct
   end
 
   def subject_present?(subject)
