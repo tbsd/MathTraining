@@ -49,7 +49,7 @@ get '/general_test' do
 end
 
 post '/general_test' do
-  retirect to('/statistics') if session[:current_exercise].nil?
+  redirect to('/statistics') if session[:current_exercise].nil?
   @warnings = []
   @messages = []
   session[:past] << session[:current_exercise]
