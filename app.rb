@@ -79,5 +79,14 @@ post '/general_test' do
 end
 
 get '/statistics' do
-  'hello there'
+  return redirect to('/') if session[:past].nil?
+  @total = session[:past].length
+  @correct = session[:past].count(&:correct?)
+  incorrect_array = session[:past].take_while { |e| !e.correct? }
+  @incorrct = incorrect_array.length
+  @mistakes = { :+ => 0, :- => 0, :* => 0, :/ => 0 }
+  @mistakes.each_key do |key|
+    @mistakes[key] = incorrect_array.count { |e| e.subject_present?(key.to_s) }
+  end
+  erb :statistics
 end

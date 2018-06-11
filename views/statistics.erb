@@ -1,0 +1,25 @@
+<div class="grid-container">
+  <div class="card">
+    <div class="card-divider">
+      <h5>Статистика</h5>
+    </div>
+    <div class="card-section">
+      Всего заданий пройдено: <%= @total%>
+      <br>Из них верно: <%= @correct %>
+      <br>Ошибочно: <%= @incorrct %>
+      <br>
+      <br>
+      <% if @mistakes && @mistakes.select {|k, v| v > 0 }.length > 0%>
+        Статистика ошибок:
+        <ul>
+          <% @mistakes.each do |key, value| %>
+            <% if value != 0 %>
+              <li> <%= "\"#{key}\": #{value}" %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
