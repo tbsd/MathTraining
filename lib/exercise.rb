@@ -6,6 +6,7 @@ class Exercise
   attr_writer :correct
 
   def initialize(subject, difficulty, answer, text)
+    raise 'Difficulty must be 1 or greater' unless difficulty >= 1
     @subject = subject
     @difficulty = difficulty
     @answer = answer
