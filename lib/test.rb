@@ -3,8 +3,8 @@
 # Stores test data
 class Test
   def initialize(main_list, additional_list)
-    @main_list = main_list.sort!
-    @additional_list = additional_list.sort!
+    @main_list = main_list
+    @additional_list = additional_list
     @past = []
     @current = main_list.shift
   end
