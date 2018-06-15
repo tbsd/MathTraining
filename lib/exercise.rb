@@ -5,7 +5,7 @@ class Exercise
   attr_reader :difficulty, :answer, :text
   attr_writer :correct
 
-  def initialize(subject, difficulty, answer, text, correct = false)
+  def initialize(subject, difficulty, answer, text)
     @subject = subject
     @difficulty = difficulty
     @answer = answer
