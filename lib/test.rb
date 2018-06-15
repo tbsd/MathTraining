@@ -25,10 +25,9 @@ class Test
 
   def mistake_stats
     mistakes = { :+ => 0, :- => 0, :* => 0, :/ => 0 }
+    incorrect = @past.find_all { |e| !e.correct? }
     mistakes.each_key do |key|
-      mistakes[key] = @past.count do |e|
-        !e.correct? && e.subject_present?(key.to_s) 
-      end
+      mistakes[key] = incorrect.count { |e| e.subject_present?(key.to_s) }
     end
   end
 end
