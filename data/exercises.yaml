@@ -1,15 +1,15 @@
 -
   subject: ['-']
-  difficulty: 0
+  difficulty: 1
   answer: -42
   text: '28 - 70 = ?'
 -
   subject: ['+', '*']
-  difficulty: 1
+  difficulty: 2
   answer: 118
   text: '2(-5) + (-8)(-16) = ?'
 -
   subject: ['*', '-']
-  difficulty: 2
+  difficulty: 3
   answer: -88.8
   text: '4.33(-20) - 2.2 = ?'
