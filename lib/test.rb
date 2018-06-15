@@ -10,9 +10,14 @@ class Test
   end
 
   def answer!(answer)
-    @current.correct = true if @current.answer == answer
+    result = @current.correct = true if @current.answer == answer
     @past << @current
-    @current = main_list.shift
+    @current = if @current.correct? || @additional_list.empty?
+                 main_list.shift
+               else
+                 @additional_list.shift
+               end
+    result
   end
 
   def past_count
