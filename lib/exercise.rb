@@ -20,4 +20,8 @@ class Exercise
   def correct?
     @correct
   end
+
+  def <=>(other)
+    @difficulty <=> other.difficulty
+  end
 end
