@@ -15,14 +15,18 @@
           <li><a href="/">Главная</a></li>
           <li><a href="/theory">Теория</a></li>
           <li><a href="/practice">Практика</a></li>
+          <li><a href="/practice/statistics">Статистика</a></li>
         </ul>
       </div>
     </div>
     <div class="cell auto"><br></div>
-    <%= yield %>
+    <div class="card" id="base-page-layout">
+      <div class="card-section">
+        <%= yield %>
+      </div>
+    </div>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
-    <script src="js/app.js"></script>
   </body>
 </html>
