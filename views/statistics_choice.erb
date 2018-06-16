@@ -1,0 +1,25 @@
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <h5>Статистика</h5>
+      <p>Здесь вы можете просмотреть статистику по последнему тесту из кажой кaтегории.</p>
+    </div>
+    <% general_test = @user['general_test'] %>
+    <% rule_test = @user['rule_test'] %>
+    <div class="large-12 cell">
+      <% if general_test.nil? && rule_test.nil? %>
+        <p>Нет доступной статистики.</p>
+      <% end %>
+      <% if general_test.nil? %>
+        <a class="button hollow disabled" >Общий тест</a>
+      <%else %>
+        <a href="/practice/statistics?test=general_test" class="button hollow" >Общий тест</a>
+      <% end %>
+      <% if rule_test.nil? %>
+        <a class="button hollow disabled">Закрепление выбранного правила</a>
+      <% else %>
+        <a href="/practice/statistics?test=rule_test" class="button hollow">Закрепление выбранного правила</a>
+      <% end %>
+    </div>
+  </div>
+</div>
