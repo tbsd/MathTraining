@@ -6,7 +6,7 @@
     <div class="card-section">
       Всего заданий пройдено: <%= @total%>
       <br>Из них верно: <%= @correct %>
-      <br>Ошибочно: <%= @incorrct %>
+      <br>Ошибочно: <%= @incorrect %>
       <br>
       <br>
       <% if @mistakes && @mistakes.select {|k, v| v > 0 }.length > 0%>
