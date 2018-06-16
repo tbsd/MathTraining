@@ -12,9 +12,10 @@ class Exercise
     @difficulty = difficulty
     @answer = answer
     @text = text
+    @correct = false
   end
 
-  def subject_present?(subject)
+  def subject?(subject)
     @subject.include?(subject.strip)
   end
 
