@@ -3,15 +3,14 @@
 ENV['RACK_ENV'] = 'test'
 
 require_relative 'spec_helper'
-require_relative '../app.rb'
+require_relative '../math_training.rb'
 
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/minitest'
 require 'rack/test'
 
-# class MiniTest::Spec
-class Minitest
+class MiniTest
   class Spec
     include Capybara::DSL
     include Capybara::Minitest::Assertions
