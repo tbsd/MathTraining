@@ -12,11 +12,13 @@ enable :sessions
 
 configure do
   set :max_dif, 3
-  set :exercises_pool, YER.read_exercises
+  set :exercises_pool, DBIO.read_exercises
+  set :user_data, DBIO.read_user_data
   set :root, __dir__
 end
 
 get '/' do
+  pp session
   erb :main
 end
 
@@ -54,7 +56,8 @@ end
 post '/general_test' do
   @warnings = []
   @messages = []
-  redirect to('/statistics') if session[:general_test].ended?
+  redirect to('/practice') if session[:general_test].nil?
+  redirect to('/statistics?=general_test') if session[:general_test].ended?
   if session[:general_test].answer!(params['answer'].to_f)
     @messages << 'Верно!'
   else
@@ -62,17 +65,46 @@ post '/general_test' do
   end
   @current_number = session[:general_test].past_count + 1
   @total_number = session[:general_test].total_count
-  redirect to('/statistics') if session[:general_test].ended?
+  redirect to('/statistics?=general_test') if session[:general_test].ended?
   # session[:page] = @current_number
   erb :general_test
 end
 
 get '/statistics' do
-  return redirect to('/practice') if session[:general_test].nil?
-  @total = session[:general_test].total_count
-  @correct = session[:general_test].correct_count
+  test = params[:test]
+  redirect to('/practice') if session[test].nil?
+  @total = session[test].total_count
+  @correct = session[test].correct_count
   @incorrect = @total - @correct
-  @mistakes = session[:general_test].mistake_stats
-  session[:general_test] = nil
+  @mistakes = session[test].mistake_stats
+  # session[test] = nil
   erb :statistics
 end
+
+get '/rule_choice' do
+  erb :rule_choice
+end
+
+get '/rule_test' do
+  redirect to('/rule_choice') unless params.key?(:rule)
+  same_rule = settings.exercises_pool.find_all { |e| e.subject?(params[:rule]) }
+  redirect to('/rule_choice') if same_rule.empty? # No such rule
+  session[:rule_test] = Test.new(same_rule, [])
+  erb :rule_test
+end
+
+post '/rule_test' do
+  @warnings = []
+  @messages = []
+  redirect to('/rule_choice') if session[:rule_test].nil?
+  redirect to('/statistics?=rule_test') if session[:rule_test].ended?
+  if session[:rule_test].answer!(params['answer'].to_f)
+    @messages << 'Верно!'
+  else
+    @warnings << 'Ошибка.'
+  end
+  redirect to('/statistics?=rule_test') if session[:rule_test].ended?
+  # session[:page] = @current_number
+  erb :rule_test
+end
+
