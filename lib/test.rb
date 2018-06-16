@@ -2,23 +2,29 @@
 
 # Stores test data
 class Test
+  attr_reader :current
+
   def initialize(main_list, additional_list)
     @main_list = main_list
     @additional_list = additional_list
     @past = []
     @current = main_list.shift
+    @ended = false
   end
 
   def answer!(answer)
-    raise '@cuttent is nil' if @current.nil?
+    raise 'Test is over' if @current.nil?
     @current.correct = true if @current.answer == answer
     @past << @current
     @current = next_exercise
+    @ended = true if @current.nil?
     @past.last.correct?
   end
 
   def total_count
-    @past.size + @main_list.size
+    count = @past.size + @main_list.size
+    count += 1 unless @current.nil?
+    count
   end
 
   def past_count
@@ -37,14 +43,20 @@ class Test
     end
   end
 
+  def ended?
+    @ended
+  end
+
   private
 
   def next_exercise
-    add_ex = @additional.find { |e| e.diffficulty == @current.difficulty }
+    add_ex = @additional_list.find_index do |e|
+      e.difficulty == @current.difficulty
+    end
     if @current.correct? || add_ex.nil?
       @main_list.shift
     else
-      @additional.delete(new_ex)
+      @additional_list.delete_at(add_ex)
     end
   end
 end
