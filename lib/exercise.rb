@@ -2,6 +2,7 @@
 
 # Stores exercise data
 class Exercise
+  include Comparable
   attr_reader :difficulty, :answer, :text
   attr_writer :correct
 
@@ -11,7 +12,6 @@ class Exercise
     @difficulty = difficulty
     @answer = answer
     @text = text
-    @correct = correct
   end
 
   def subject_present?(subject)
