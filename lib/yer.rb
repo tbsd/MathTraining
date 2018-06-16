@@ -9,4 +9,8 @@ module YER
       Exercise.new(ex['subject'], ex['difficulty'], ex['answer'], ex['text'])
     end
   end
+
+  def self.read_user_data
+    YAML.load_file('data/user_data.yaml')
+  end
 end
