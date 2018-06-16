@@ -13,7 +13,7 @@ class Test
   end
 
   def answer!(answer)
-    raise 'Test is over' if @current.nil?
+    raise 'Test is over' if @ended
     @current.correct = true if @current.answer == answer
     @past << @current
     @current = next_exercise
@@ -39,7 +39,7 @@ class Test
     mistakes = { :+ => 0, :- => 0, :* => 0, :/ => 0 }
     incorrect = @past.find_all { |e| !e.correct? }
     mistakes.each_key do |key|
-      mistakes[key] = incorrect.count { |e| e.subject_present?(key.to_s) }
+      mistakes[key] = incorrect.count { |e| e.subject?(key.to_s) }
     end
   end
 
