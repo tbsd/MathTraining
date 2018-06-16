@@ -17,6 +17,10 @@ class Test
     @past.last.correct?
   end
 
+  def total_count
+    @past.size + @main_list.size
+  end
+
   def past_count
     @past.size
   end
