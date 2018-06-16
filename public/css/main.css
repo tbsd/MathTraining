@@ -2,3 +2,8 @@
   height: 40px;
   padding: 10px;
 }
+
+#base-page-layout {
+  align: center;
+  text-align: center;
+}
