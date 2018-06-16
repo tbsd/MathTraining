@@ -10,14 +10,11 @@ class Test
   end
 
   def answer!(answer)
-    result = @current.correct = true if @current.answer == answer
+    raise '@cuttent is nil' if @current.nil?
+    @current.correct = true if @current.answer == answer
     @past << @current
-    @current = if @current.correct? || @additional_list.empty?
-                 main_list.shift
-               else
-                 @additional_list.shift
-               end
-    result
+    @current = next_exercise
+    @past.last.correct?
   end
 
   def past_count
@@ -33,6 +30,17 @@ class Test
     incorrect = @past.find_all { |e| !e.correct? }
     mistakes.each_key do |key|
       mistakes[key] = incorrect.count { |e| e.subject_present?(key.to_s) }
+    end
+  end
+
+  private
+
+  def next_exercise
+    add_ex = @additional.find { |e| e.diffficulty == @current.difficulty }
+    if @current.correct? || add_ex.nil?
+      @main_list.shift
+    else
+      @additional.delete(new_ex)
     end
   end
 end
