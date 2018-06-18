@@ -10,8 +10,7 @@ require 'capybara/dsl'
 require 'capybara/minitest'
 require 'rack/test'
 
-class MiniTest
-  class Spec
+class MiniTest::Spec
     include Capybara::DSL
     include Capybara::Minitest::Assertions
     include Rack::Test::Methods
@@ -24,5 +23,4 @@ class MiniTest
       Capybara.reset_sessions!
       Capybara.use_default_driver
     end
-  end
 end
