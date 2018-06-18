@@ -46,7 +46,7 @@ get '/theory' do
 end
 
 get '/practice/general_test' do
-  main_count = 2
+  main_count = 25
   additional_count = 3
   dif_count = main_count / settings.max_dif
   main_list = []
@@ -64,9 +64,9 @@ get '/practice/general_test' do
   id = session['user_id']
   user_data[id]['general_test'] = Test.new(main_list.sort, additional.sort)
   @test = user_data[id]['general_test']
-  @current_number = 1
+  @current_number = @test.past_count + 1
   @total_number = @test.total_count
-  erb :general_test
+  erb :testing
 end
 
 post '/practice/general_test' do
@@ -84,7 +84,7 @@ post '/practice/general_test' do
   @current_number = @test.past_count + 1
   @total_number = @test.total_count
   redirect to('/practice/statistics?test=general_test') if @test.ended?
-  erb :general_test
+  erb :testing
 end
 
 get '/practice/statistics' do
@@ -112,7 +112,11 @@ get '/practice/rule_test' do
   redirect to('/practice/rule_choice') if same_rule.empty? # No such rule
   user_data[id]['rule_test'] = Test.new(same_rule.shuffle, [])
   @test = user_data[id]['rule_test']
-  erb :rule_test
+  # erb :rule_test
+  @current_number = @test.past_count + 1
+  @total_number = @test.total_count
+  @test_name = "Действие: \"#{params[:rule]}\""
+  erb :testing
 end
 
 post '/practice/rule_test' do
@@ -128,5 +132,10 @@ post '/practice/rule_test' do
     @warnings << 'Ошибка.'
   end
   redirect to('/practice/statistics?test=rule_test') if @test.ended?
-  erb :rule_test
+  # erb :rule_test
+  @current_number = @test.past_count + 1
+  @total_number = @test.total_count
+  pp params
+  @test_name = "Действие: \"#{params[:rule]}\""
+  erb :testing
 end
