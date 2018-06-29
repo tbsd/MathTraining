@@ -11,16 +11,16 @@ require 'capybara/minitest'
 require 'rack/test'
 
 class MiniTest::Spec
-    include Capybara::DSL
-    include Capybara::Minitest::Assertions
-    include Rack::Test::Methods
+  include Capybara::DSL
+  include Capybara::Minitest::Assertions
+  include Rack::Test::Methods
 
-    before do
-      Capybara.app = Sinatra::Application.new
-    end
+  before do
+    Capybara.app = Sinatra::Application.new
+  end
 
-    after do
-      Capybara.reset_sessions!
-      Capybara.use_default_driver
-    end
+  after do
+    Capybara.reset_sessions!
+    Capybara.use_default_driver
+  end
 end
