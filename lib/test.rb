@@ -4,7 +4,7 @@
 class Test
   attr_reader :current
 
-  def initialize(main_list, additional_list)
+  def initialize(main_list, additional_list = [])
     @main_list = main_list
     @additional_list = additional_list
     @past = []
@@ -14,17 +14,21 @@ class Test
 
   def answer!(answer)
     raise 'Test is over' if @ended
-    @current.correct = true if @current.answer == answer
+    @current.make_correct! if @current.answer == answer
     @past << @current
     @current = next_exercise
     @ended = true if @current.nil?
     @past.last.correct?
   end
 
-  def total_count
+  def expected_count
     count = @past.size + @main_list.size
     count += 1 unless @current.nil?
     count
+  end
+
+  def abort!
+    @ended = true
   end
 
   def past_count
