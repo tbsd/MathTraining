@@ -24,7 +24,7 @@
     <% end %>
     <div class="card">
       <div class="card-divider">
-        <h5><%= @current_number %>/<%= @total_number %> Вычислите:</h5>
+        <h5><%= "#{@test_name} " if @test_name %><%= @current_number %>/<%= @expected_number %> Вычислите:</h5>
       </div>
       <div class="card-section">
         <div class="exercise-text"><%= @test.current.text %></div>
