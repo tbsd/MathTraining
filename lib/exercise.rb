@@ -4,7 +4,6 @@
 class Exercise
   include Comparable
   attr_reader :difficulty, :answer, :text
-  attr_writer :correct
 
   def initialize(subject, difficulty, answer, text)
     raise 'Difficulty must be 1 or greater' unless difficulty >= 1
@@ -17,6 +16,10 @@ class Exercise
 
   def subject?(subject)
     @subject.include?(subject.strip)
+  end
+
+  def make_correct!
+    @correct = true
   end
 
   def correct?
